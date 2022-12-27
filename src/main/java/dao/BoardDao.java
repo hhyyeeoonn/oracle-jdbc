@@ -23,6 +23,8 @@ public class BoardDao {
 			b.setCreatedate(rs.getString("createdate"));
 			list.add(b);
 		}
+		rs.close();
+		stmt.close();
 		return list;
 	}
 	
@@ -81,14 +83,17 @@ public class BoardDao {
 		return row;
 	}
 
-	public int deleteBoard(Connection conn, Board board) throws Exception {
+	public int deleteBoard(Connection conn, Board board, int pw) throws Exception {
 		int row = 0;
-		String sql = "DELETE FROM board WHERE board_no =? AND member_id = ?";
+		String sql = "DELETE FROM board b"
+				+ " INNER JOIN member m"
+				+ " ON b.member_id = m.Member_id"
+				+ " WHERE b.board_no =? AND b.member_id = ? AND m.member_pw = ?";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setInt(1, board.getBoardNo());
 		stmt.setString(2, board.getMemberId());
+		stmt.setInt(3, pw);
 		stmt.close();
 		return row;
 	}
-	
 }

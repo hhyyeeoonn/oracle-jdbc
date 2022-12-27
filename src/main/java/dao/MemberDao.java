@@ -21,15 +21,44 @@ public class MemberDao {
 			loginMember.setMemberId(rs.getString("memberId"));
 			loginMember.setMemberName(rs.getString("memberName"));
 		}
+		rs.close();
+		stmt.close();
 		return loginMember;
 	}
 	
 	public int insertMember(Connection conn, Member member) throws Exception {
 		int row = 0;
 		String sql ="INSERT INTO member ("
-				+ "member_id, member_pw";
-		
+				+ "member_id, member_pw, member_name, createdate, updatedate"
+				+ ") VALUES ("
+				+ "?, ?, ?, sysdate, sysdate"
+				+ ");";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		row = stmt.executeUpdate();
+		stmt.close();
 		return row;
 	}
 	
+	public int updateMember(Connection conn, Member member) throws Exception {
+		int row = 0;
+		String sql = "UPDATE member SET member_name = ?"
+				+ "	WHERE member_id = ? AND member_pw = ?";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setString(1, member.getMemberId());
+		stmt.setInt(2, member.getMemberPw());
+		row = stmt.executeUpdate();
+		stmt.close();
+		return row;
+	}
+	
+	public int deleteMember(Connection conn, Member member) throws Exception {
+		int row = 0;
+		String sql = "DELETE FROM member"
+				+ " WHERE member_id = ? AND member_pw = ?";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setString(1, member.getMemberId());
+		stmt.setInt(2, member.getMemberPw());
+		stmt.close();
+		return row;
+	}
 }
