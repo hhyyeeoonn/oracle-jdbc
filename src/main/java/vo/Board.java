@@ -1,5 +1,5 @@
 package vo;
-// vo는 모델계층이 아니라 전 계층에서 매개변수나 반환타입으로 쓴다
+// vo는 모델계층이 아니라 타입이라고 봐야함 전 계층에서 매개변수나 반환타입으로 쓰기 때문
 public class Board {
 	private int boardNo;
 	private String boardTitle;
@@ -12,8 +12,7 @@ public class Board {
 		// super(); // 부모생성자 호출 생략가능
 	}
 	
-	public Board(int boardNo, String boardTitle, String boardContent, String memberId, String updatedate,
-			String createdate) {
+	public Board(int boardNo, String boardTitle, String boardContent, String memberId, String updatedate, String createdate) {
 		super();
 		this.boardNo = boardNo;
 		this.boardTitle = boardTitle;

@@ -16,7 +16,7 @@
 		</tr>
 		<tr>
 			<td rowspan = "2">
-				작성일:${board.}
+				작성일:${board.createdate}
 			</td>
 		</tr>
 		<tr>
@@ -25,10 +25,10 @@
 			</td>
 		</tr>
 	</table>
-	<a href = "${pageContext.request.contextPath}/UpdateBoardFormController?bord">
+	<a href = "${pageContext.request.contextPath}/UpdateBoardFormController?bordNo=${board.boardNo}">
 		<button type = "button">수정</button>
 	</a>
-	<a href = "${pageContext.request.contextPath}/DeleteBoardController">
+	<a href = "${pageContext.request.contextPath}/DeleteBoardController?bordNo=${board.boardNo}">
 		<button type = "button">삭제</button>
 	</a>
 </body>
