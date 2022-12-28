@@ -4,7 +4,6 @@ import vo.Member;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.*;
 
 public class MemberDao {
 	public Member loginMember(Connection conn, Member member) throws Exception {

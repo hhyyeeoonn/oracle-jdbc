@@ -19,7 +19,7 @@ public class BoardService { // db접근 로직 외에 모든 것은 service에�
 		Connection conn = null;
 		try {
 	         conn = DBUtil.getConnection();
-	         int beginRow = (currentPage-1)*rowPerPage+1;
+	         int beginRow = (currentPage - 1) * rowPerPage+1;
 	         int endRow = beginRow + rowPerPage - 1;
 	         this.boardDao = new BoardDao();
 	         list = boardDao.selectBoardListByPage(conn, beginRow, endRow);
@@ -41,14 +41,14 @@ public class BoardService { // db접근 로직 외에 모든 것은 service에�
 	      return list;
 	}
 	
-	public Board getSelectBoardOne(Board board) {
+	public Board getSelectBoardOne(int boardNo) {
 		Board selectBoard = null;
 		Connection conn = null;
 		try {
 			conn = DBUtil.getConnection();
 			this.boardDao = new BoardDao();
 			selectBoard = new Board();
-			selectBoard = boardDao.selectBoardOne(conn, board);
+			selectBoard = boardDao.selectBoardOne(conn, boardNo);
 			conn.commit();
 		} catch (Exception e) {
 			try {

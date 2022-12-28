@@ -21,6 +21,9 @@
 	</div>
 	
 	<h1>BOARD LIST</h1>
+	<div>
+		<a href = "${pageContext.request.contextPath}/board/addBoard">글 쓰기</a>
+	</div>
 	<form id = "pageForm" method = "get" action ="${pageContext.request.contextPath}/board/boardList">
 		<select name = "rowPerPage" id = "rowPerPage">
 			<c:if test = "${rowPerPage == 10}">
@@ -44,12 +47,14 @@
 		<tr>
 			<th>No.</th>
 			<th>Title</th>
-			<th>Createdate</th>
+			<th>CreateDate</th>
 		</tr>
 		<c:forEach var = "b" items = "${boardList}">
 			<tr>
 				<td>${b.boardNo}</td>
-				<td><a href = "${pageContext.request.contextPath}/board/boardOne?boardNo=${b.boardNo}">${b.boardTitle}</a></td>
+				<td>
+					<a href = "${pageContext.request.contextPath}/board/boardOne?boardNo=${b.boardNo}">${b.boardTitle}</a>
+				</td>
 				<td>${b.createdate}</td>
 			</tr>
 		</c:forEach>

@@ -10,7 +10,7 @@
 	<!-- 로그인 한 멤버만 볼 수 있음 --> 
 	
 	<div>
-		${loginMember.memberName}님 반갑습니다
+		${loginMemberName}님 반갑습니다
 	</div>
 	
 	<!-- 게시판링크 -->

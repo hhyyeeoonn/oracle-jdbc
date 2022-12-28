@@ -15,24 +15,24 @@
 		<tr>
 			<th>Title.</th>
 			<td>
-				<input type = "text" name = "title" value = "${board.title}">
+				<input type = "text" name = "title" value = "${boardOne.boardTitle}">
 			</td>
 		</tr>
 		<tr>
-			<td rowspan = "2">
-				작성일 / ${board.createdate}
+			<td colspan = "2">
+				작성일 / ${boardOne.createdate}
 			</td>
 		</tr>
 		<tr>
-			<td rowspan = "2">
-				<textarea rows="5" cols="20">${board.content}</textarea>
+			<td colspan = "2">
+				<textarea rows="5" cols="30">${boardOne.boardContent}</textarea>
 			</td>
 		</tr>
 	</table>
-	<a href = "${pageContext.request.contextPath}/board/ModifyBoard?bordNo=${board.boardNo}">
+	<a href = "${pageContext.request.contextPath}/board/modifyBoard?boardNo=${boardOne.boardNo}">
 		<button type = "button">수정</button>
 	</a>
-	<a href = "${pageContext.request.contextPath}/board/RemoveBoard?bordNo=${board.boardNo}">
+	<a href = "${pageContext.request.contextPath}/board/removeBoard?boardNo=${boardOne.boardNo}">
 		<button type = "button">삭제</button>
 	</a>
 </body>

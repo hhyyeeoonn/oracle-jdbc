@@ -67,6 +67,9 @@ public class ModifyMemberController extends HttpServlet {
 		if(updateRow == 1) {
 			System.out.println("ModifyMemberController: 회원정보수정완료");
 		}
+		
+		session.removeAttribute("loginMembeName");
+		session.setAttribute("loginMemberName", member.getMemberName());
 		response.sendRedirect(request.getContextPath() + "/member/memberOne");
 	}
 

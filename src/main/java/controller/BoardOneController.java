@@ -26,19 +26,15 @@ public class BoardOneController extends HttpServlet {
 		HttpSession session = request.getSession();
 		Member loginMember = (Member)session.getAttribute("loginMember");
 		if(loginMember == null) {
-			response.sendRedirect(request.getContextPath() + "/home");
+			response.sendRedirect(request.getContextPath() + "/member/login");
 			return;
 		}
 		
-		//String memberId = 세션에 저장되어 있는 멤버아이디 가져오기
-		int no = Integer.parseInt(request.getParameter("boardNo"));
-		
-		Board board = new Board();
-		board.setBoardNo(no);
-		//board.setMemberId();
+
+		int boardNo = Integer.parseInt(request.getParameter("boardNo"));
 		
 		this.boardService = new BoardService();
-		Board boardOne = boardService.getSelectBoardOne(board);
+		Board boardOne = boardService.getSelectBoardOne(boardNo);
 		request.setAttribute("boardOne", boardOne);
 		
 		request.getRequestDispatcher("/WEB-INF/view/board/boardOne.jsp").forward(request, response);
