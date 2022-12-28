@@ -21,7 +21,7 @@
 	</div>
 	
 	<h1>BOARD LIST</h1>
-	<form id = "pageForm" method = "get" action ="${pageContext.request.contextPath}/board/BoardList">
+	<form id = "pageForm" method = "get" action ="${pageContext.request.contextPath}/board/boardList">
 		<select name = "rowPerPage" id = "rowPerPage">
 			<c:if test = "${rowPerPage == 10}">
 				<option value = "10" selected = "selected">10</option>

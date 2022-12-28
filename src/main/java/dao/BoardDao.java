@@ -7,10 +7,10 @@ import vo.Board;
 public class BoardDao {
 	public ArrayList<Board> selectBoardListByPage(Connection conn, int beginRow, int endRow) throws Exception {
 		ArrayList<Board> list = new ArrayList<Board>();
-		String sql = "SELECT board_no boardNo, board_title boardTitle, createdate"
-				+ " FROM (SELECT rownum rnum, board_no, board_title, createdate"
-				+ "			FROM (SELECT board_no, board_title, createdate"
-				+ "					FROM board ORDER BY board_no DESC))" // 첫번째 셀렉트 글의 순서를 만들어 rnum 붙이기 
+		String sql = "SELECT board_no boardNo, board_title boardTitle, member_id memberId, createdate"
+				+ " FROM (SELECT rownum rnum, t.board_no, t.board_title, t.member_id, t.createdate"
+				+ "			FROM (SELECT board_no, board_title, member_id, createdate"
+				+ "					FROM board ORDER BY board_no DESC) t) t2" // 첫번째 셀렉트 글의 순서를 만들어 rnum 붙이기 
 				+ " WHERE rnum BETWEEN ? AND ?"; // WHERE rnum >=? AND rnum <=?; 같은 표현인데 BETWEEN쓰는 게 더 좋다
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setInt(1, beginRow);
@@ -20,6 +20,7 @@ public class BoardDao {
 			Board b = new Board();
 			b.setBoardNo(rs.getInt("boardNo"));
 			b.setBoardTitle(rs.getString("boardTitle"));
+			b.setMemberId(rs.getString("memberId"));
 			b.setCreatedate(rs.getString("createdate"));
 			list.add(b);
 		}
