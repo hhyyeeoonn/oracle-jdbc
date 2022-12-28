@@ -118,13 +118,13 @@ public class BoardService { // db접근 로직 외에 모든 것은 service에�
 		return row;
 	}
 	
-	public int getDeleteBoard(Board board, int pw) {
+	public int getDeleteBoard(Board board) {
 		int row = 0;
 		Connection conn = null;
 		try {
 			conn = DBUtil.getConnection();
 			boardDao = new BoardDao();
-			row = boardDao.deleteBoard(conn, board, pw);
+			row = boardDao.deleteBoard(conn, board);
 			conn.commit();
 		} catch (Exception e) {
 			try {
@@ -142,5 +142,4 @@ public class BoardService { // db접근 로직 외에 모든 것은 service에�
 		}
 		return row;
 	}
-	
 }

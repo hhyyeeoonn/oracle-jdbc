@@ -8,8 +8,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
-@WebServlet("/UpdateBoardActionController")
-public class UpdateBoardActionController extends HttpServlet {
+@WebServlet("/board/ModifyBoard")
+public class ModifyBoardController extends HttpServlet {
+ 
+	// 글 수정 폼
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+	}
+
+	// 글 수정 액션
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 	}

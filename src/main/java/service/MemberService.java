@@ -16,7 +16,7 @@ public class MemberService {
 		try {
 			conn = DBUtil.getConnection();
 			this.memberDao = new MemberDao();
-			loginMember = memberDao.loginMember(conn, loginMember);
+			loginMember = memberDao.loginMember(conn, member);
 			conn.commit();
 		} catch (Exception e) {
 			try {
@@ -35,7 +35,32 @@ public class MemberService {
 		return loginMember;
 	}
 	
-	public int getInsertMember (Member member) {
+	public Member getSelectMember(String memberId) {
+		Member selectOneMember = null;
+		Connection conn = null;
+		try {
+			conn = DBUtil.getConnection();
+			this.memberDao = new MemberDao();
+			selectOneMember = memberDao.selectMember(conn, memberId);
+			conn.commit();
+		} catch(Exception e) {
+			try {
+				conn.rollback();
+			} catch(SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch(SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return selectOneMember;
+	}
+	
+	public int getInsertMember(Member member) {
 		int row = 0;
 		Connection conn = null;
 		try {
@@ -85,7 +110,7 @@ public class MemberService {
 		return row;
 	}
 	
-	public int getDeleteMember (Member member) {
+	public int getDeleteMember(Member member) {
 		int row = 0;
 		Connection conn = null;
 		try {

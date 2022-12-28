@@ -7,6 +7,10 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<div>
+		<jsp:include page="/WEB-INF/view/index.jsp"></jsp:include>
+	</div>
+	
 	<table>
 		<tr>
 			<th>Title.</th>
@@ -16,7 +20,7 @@
 		</tr>
 		<tr>
 			<td rowspan = "2">
-				작성일:${board.createdate}
+				작성일 / ${board.createdate}
 			</td>
 		</tr>
 		<tr>
@@ -25,10 +29,10 @@
 			</td>
 		</tr>
 	</table>
-	<a href = "${pageContext.request.contextPath}/UpdateBoardFormController?bordNo=${board.boardNo}">
+	<a href = "${pageContext.request.contextPath}/board/ModifyBoard?bordNo=${board.boardNo}">
 		<button type = "button">수정</button>
 	</a>
-	<a href = "${pageContext.request.contextPath}/DeleteBoardController?bordNo=${board.boardNo}">
+	<a href = "${pageContext.request.contextPath}/board/RemoveBoard?bordNo=${board.boardNo}">
 		<button type = "button">삭제</button>
 	</a>
 </body>
