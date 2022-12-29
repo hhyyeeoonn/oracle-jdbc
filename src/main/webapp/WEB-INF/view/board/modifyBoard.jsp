@@ -5,13 +5,28 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script>
+	$(document).ready(function() {
+		$('#title').focus();
+		$('#modifyBtn').click(function() {
+			if($('#title').val() == '' || $('#content').val() == '') { // 빈칸 체크
+				alert('비어있는 내용을 입력하세요');
+				return;
+			} 
+			
+			if($('#title').val() != '' && $('#content').val() != '') {
+				$('#modifyForm').submit();
+			}
+		});
+	});
+</script>
 </head>
 <body>
 	<div>
 		<jsp:include page="/WEB-INF/view/index.jsp"></jsp:include>
 	</div>
-	
-	<form method = "post" action = "${pageContext.request.contextPath}/board/modifyBoard">
+	<form id = "modifyForm" method = "post" action = "${pageContext.request.contextPath}/board/modifyBoard">
 		<input type = "hidden" name = "memberId" value = "${board.memberId}">
 		<input type = "hidden" name = "boardNo" value = "${board.boardNo}">
 		<table>
@@ -27,7 +42,7 @@
 				</td>
 			</tr>
 		</table>
-		<button type = "submit">글 수정</button>
+		<button type = "button" id = "modifyBtn">글 수정</button>
 	</form>
 </body>
 </html>

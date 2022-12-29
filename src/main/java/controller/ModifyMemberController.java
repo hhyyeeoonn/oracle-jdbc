@@ -30,6 +30,12 @@ public class ModifyMemberController extends HttpServlet {
 			response.sendRedirect(request.getContextPath() + "/member/login");
 		}
 		
+		// 회원정보수정 실패시
+		String msg = request.getParameter("msg");
+	    if(msg != "") {
+	    	request.setAttribute("msg", msg);
+	    }
+		
 		String memberId = loginMember.getMemberId();
 		
 		this.memberService = new MemberService();
@@ -64,8 +70,12 @@ public class ModifyMemberController extends HttpServlet {
 		
 		this.memberService = new MemberService();
 		int updateRow = memberService.getUpdateMember(member);
+		String msg = "check";
 		if(updateRow == 1) {
 			System.out.println("ModifyMemberController: 회원정보수정완료");
+		} else {
+			response.sendRedirect(request.getContextPath() + "/member/modifyMember?msg=" + msg);
+			return;
 		}
 		
 		session.removeAttribute("loginMembeName");

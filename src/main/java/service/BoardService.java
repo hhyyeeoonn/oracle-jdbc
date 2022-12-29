@@ -10,7 +10,8 @@ import vo.Board;
 
 public class BoardService { // db접근 로직 외에 모든 것은 service에서 처리하는 것이 좋다
 	private BoardDao boardDao;
-	public ArrayList<Board> getBoardListByPage(int currentPage, int rowPerPage) {
+	
+	public ArrayList<Board> getBoardListByPage(String word, int currentPage, int rowPerPage) {
 		/*
 		 	1) connection 생성 <- DBUtil.class
 		 	2) beginRowm endRow 생성 <- currentPage와 rowPerPage를 가공
@@ -19,10 +20,10 @@ public class BoardService { // db접근 로직 외에 모든 것은 service에�
 		Connection conn = null;
 		try {
 	         conn = DBUtil.getConnection();
-	         int beginRow = (currentPage - 1) * rowPerPage+1;
+	         int beginRow = (currentPage - 1) * rowPerPage + 1; // 한페이지의 시작 페이지
 	         int endRow = beginRow + rowPerPage - 1;
 	         this.boardDao = new BoardDao();
-	         list = boardDao.selectBoardListByPage(conn, beginRow, endRow);
+	         list = boardDao.selectBoardListByPage(conn, word, beginRow, endRow);
 	         conn.commit(); // DBUtil.class에서 conn.setAutoCommit(false);
 	      } catch (Exception e) {
 	         try {
@@ -38,7 +39,8 @@ public class BoardService { // db접근 로직 외에 모든 것은 service에�
 	            e.printStackTrace();
 	         }
 	      }
-	      return list;
+		System.out.println("BoardListController");
+	    return list;
 	}
 	
 	public Board getSelectBoardOne(int boardNo) {

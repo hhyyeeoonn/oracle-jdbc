@@ -38,6 +38,12 @@ public class LoginController extends HttpServlet {
 	    if(msg != "") {
 	    	request.setAttribute("msg", msg);
 	    }
+	    
+	    // 로그인실패시 띄울 알림창
+	    String loginMsg = request.getParameter("loginMsg");
+	    if(loginMsg != "") {
+	    	request.setAttribute("loginMsg", loginMsg);
+	    }
 	 
 	    // View
 	    request.getRequestDispatcher("/WEB-INF/view/member/login.jsp").forward(request, response);
@@ -69,8 +75,9 @@ public class LoginController extends HttpServlet {
 		MemberService memberService = new MemberService();
 		Member returnMember = memberService.getLoginMember(member);
 		
+		String loginMsg = "check";
 		if(returnMember == null) { // 로그인 실패
-			response.sendRedirect(request.getContextPath() + "/member/login");
+			response.sendRedirect(request.getContextPath() + "/member/login?loginMsg=" + loginMsg);
 			return;
 		}
 		

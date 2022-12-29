@@ -29,15 +29,14 @@ public class BoardOneController extends HttpServlet {
 			response.sendRedirect(request.getContextPath() + "/member/login");
 			return;
 		}
-		
 
 		int boardNo = Integer.parseInt(request.getParameter("boardNo"));
 		
 		this.boardService = new BoardService();
 		Board boardOne = boardService.getSelectBoardOne(boardNo);
 		request.setAttribute("boardOne", boardOne);
+		request.setAttribute("loginMember", loginMember.getMemberId());
 		
 		request.getRequestDispatcher("/WEB-INF/view/board/boardOne.jsp").forward(request, response);
 	}
-
 }

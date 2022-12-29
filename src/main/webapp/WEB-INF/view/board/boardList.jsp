@@ -10,7 +10,9 @@
 	$(document).ready(function() {
 		$('#rowPerPage').change(function() {
 			$('#pageForm').submit();
-			alert('change');
+		});
+		$('#searchBtn').click(function() {
+			$('#pageForm').submit();
 		});
 	});
 </script>
@@ -25,6 +27,8 @@
 		<a href = "${pageContext.request.contextPath}/board/addBoard">글 쓰기</a>
 	</div>
 	<form id = "pageForm" method = "get" action ="${pageContext.request.contextPath}/board/boardList">
+		<input type ="text" id = "word" name = "word" value = "${word}">
+		<button type = "button" id = "searchBtn">검색</button>
 		<select name = "rowPerPage" id = "rowPerPage">
 			<c:if test = "${rowPerPage == 10}">
 				<option value = "10" selected = "selected">10</option>
@@ -47,6 +51,7 @@
 		<tr>
 			<th>No.</th>
 			<th>Title</th>
+			<th>ID</th>
 			<th>CreateDate</th>
 		</tr>
 		<c:forEach var = "b" items = "${boardList}">
@@ -55,13 +60,16 @@
 				<td>
 					<a href = "${pageContext.request.contextPath}/board/boardOne?boardNo=${b.boardNo}">${b.boardTitle}</a>
 				</td>
+				<td>${b.memberId}</td>
 				<td>${b.createdate}</td>
 			</tr>
 		</c:forEach>
 	</table>
 	<div>
-		<a href = "${pageContext.request.contextPath}/board/boardList?rowPerPage=${rowPerPage}&currentPage=${currentPage - 1}">이전</a>
-		<a href = "${pageContext.request.contextPath}/board/boardList?rowPerPage=${rowPerPage}&currentPage=${currentPage + 1}">다음</a>
+		<c:if test = "${currentPage > 1}">
+			<a href = "${pageContext.request.contextPath}/board/boardList?rowPerPage=${rowPerPage}&currentPage=${currentPage - 1}&word=${word}">이전</a>
+		</c:if>
+			<a href = "${pageContext.request.contextPath}/board/boardList?rowPerPage=${rowPerPage}&currentPage=${currentPage + 1}&word=${word}">다음</a>
 	</div>
 </body>
 </html>

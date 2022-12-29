@@ -5,16 +5,19 @@ import java.util.*;
 import vo.Board;
 
 public class BoardDao {
-	public ArrayList<Board> selectBoardListByPage(Connection conn, int beginRow, int endRow) throws Exception {
+	
+	public ArrayList<Board> selectBoardListByPage(Connection conn, String word, int beginRow, int endRow) throws Exception {
 		ArrayList<Board> list = new ArrayList<Board>();
+		String searchWord = "%"+word+"%"; 
 		String sql = "SELECT board_no boardNo, board_title boardTitle, member_id memberId, createdate"
-				+ "	FROM (SELECT rownum rnum, board_no, board_title, member_id, createdate"
-				+ "	FROM (SELECT board_no, board_title, member_id, createdate"
-				+ "	FROM board TO_NUMBER ORDER BY board_no DESC))" // 첫번째 셀렉트 글의 순서를 만들어 rnum 붙이기 
-				+ "	WHERE rnum BETWEEN ? AND ?"; // WHERE rnum >=? AND rnum <=?; 같은 표현인데 BETWEEN쓰는 게 더 좋다
+				+ " FROM (SELECT rownum rnum, board_no, board_title, member_id, createdate"
+				+ " FROM (SELECT board_no, board_title, member_id, createdate"
+				+ " FROM board ORDER BY TO_NUMBER(board_no) DESC))"
+				+ " WHERE board_title LIKE ? AND rnum BETWEEN ? AND ?";
 		PreparedStatement stmt = conn.prepareStatement(sql);
-		stmt.setInt(1, beginRow);
-		stmt.setInt(2, endRow);
+		stmt.setString(1, searchWord);
+		stmt.setInt(2, beginRow);
+		stmt.setInt(3, endRow);
 		ResultSet rs = stmt.executeQuery();
 		while(rs.next()) {
 			Board b = new Board();
@@ -26,6 +29,7 @@ public class BoardDao {
 		}
 		rs.close();
 		stmt.close();
+		System.out.println("BoardListController");
 		return list;
 	}
 	
@@ -47,7 +51,7 @@ public class BoardDao {
 			selectBoard.setBoardTitle(rs.getString("boardTitle"));
 			selectBoard.setBoardContent(rs.getString("boardContent"));
 			selectBoard.setMemberId(rs.getString("memberId"));
-			selectBoard.setCreatedate(rs.getString("createdate"));
+			selectBoard.setCreatedate(rs.getString("createdate").substring(0, 10));
 		}
 		stmt.close();
 		rs.close();
