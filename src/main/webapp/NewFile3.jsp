@@ -1,14 +1,15 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+</head>
 
 <!-- 부트스트랩 css 사용 -->
 <link rel = "stylesheet" href = "${pageContext.request.contextPath}/resources/css/bootstrap.min.css">
+
 
 <style>
 	@import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700,800,900');
@@ -302,68 +303,7 @@
 
 </style>
 
-<script>
-	$(document).ready(function() {
-		if($('#msg').val() != '') { // 가입 완료 후
-			alert('가입을 환영합니다!');
-			$('#msg').val('');
-		}
-		
-		if($('#loginMsg').val() != '') { // 로그인 실패시
-			alert('아이디와 비밀번호를 확인하세요');
-			$('#loginMsg').val('');
-		}
-		
-		$('#loginBtn').click(function() {
-			if($('#id').val() == '') { // 아이디 빈칸 체크
-				alert('아이디를 입력하세요');
-				$('#id').focus();
-				return;
-			} 
-			if($('#pw').val() == '') { // 비밀번호 빈칸 체크
-				alert('비밀번호를 입력하세요');
-				$('#pw').focus();
-				return;
-			}
-			
-			if($('#id').val() != '' && $('#pw').val() != '') {
-				$('#loginForm').submit();
-			}
-		});
-		
-		
-		$('#createBtn').click(function() {
-			if($('#newName').val() == '') { // 비밀번호 빈칸 체크
-				alert('이름을 입력하세요');
-				$('#name').focus();
-				return;
-			}
-			if($('#newId').val() == '') { // 아이디 빈칸 체크
-				alert('아이디를 입력하세요');
-				$('#id').focus();
-				return;
-			} 
-			if($('#newPw').val() == '') { // 비밀번호 빈칸 체크
-				alert('비밀번호를 입력하세요');
-				$('#pw').focus();
-				return;
-			}
-			if($('#newPw').val() != $('#pw2').val()) { // 비밀번호 확인
-				alert('비밀번호를 확인하세요');
-				$('#pw2').focus();
-				return;
-			}
-			
-			if($('#newId').val() != '' && $('#newPw').val() != '' && $('#newName').val() != '') {
-				$('#addMemberForm').submit();
-			}
-		});
-		
-		
-		
-	});
-</script>
-</head>
+
 <body>
 	<a href="https://front.codes/" class="logo" target="_blank">
 		<img src="https://assets.codepen.io/1462889/fcy.png" alt="">
@@ -382,20 +322,17 @@
 								<div class="card-front">
 									<div class="center-wrap">
 										<div class="section text-center">
-											<input type = "hidden" id = "msg" value = "${msg}">
-											<input type = "hidden" id = "loginMsg" value = "${loginMsg}">
 											<h4 class="mb-4 pb-3">Log In</h4>
-											<form id = "loginForm" method = "post" action ="${pageContext.request.contextPath}/member/login">
-												<div class="form-group">
-													<input type="email" name="id" class="form-style" placeholder="Your ID" id="id" autocomplete="off">
-													<i class="input-icon uil uil-at"></i>
-												</div>	
-												<div class="form-group mt-2">
-													<input type="password" name="pw" class="form-style" placeholder="Your Password" id="pw" autocomplete="off">
-													<i class="input-icon uil uil-lock-alt"></i>
-												</div>
-												<button type = "button" class="btn mt-4" id = "loginBtn">login</button>
-											</form>
+											<div class="form-group">
+												<input type="email" name="logemail" class="form-style" placeholder="Your Email" id="logemail" autocomplete="off">
+												<i class="input-icon uil uil-at"></i>
+											</div>	
+											<div class="form-group mt-2">
+												<input type="password" name="logpass" class="form-style" placeholder="Your Password" id="logpass" autocomplete="off">
+												<i class="input-icon uil uil-lock-alt"></i>
+											</div>
+											<a href="#" class="btn mt-4">submit</a>
+                            				<p class="mb-0 mt-4 text-center"><a href="#0" class="link">Forgot your password?</a></p>
 				      					</div>
 			      					</div>
 			      				</div>
@@ -403,25 +340,19 @@
 									<div class="center-wrap">
 										<div class="section text-center">
 											<h4 class="mb-4 pb-3">Sign Up</h4>
-											<form id = "addMemberForm" method = "post" action ="${pageContext.request.contextPath}/member/addMember">
-												<div class="form-group">
-													<input type="text" name="newName" class="form-style" placeholder="Your Name" id="newName" autocomplete="off">
-													<i class="input-icon uil uil-user"></i>
-												</div>	
-												<div class="form-group mt-2">
-													<input type="email" name="newId" class="form-style" placeholder="Your Id" id="newId" autocomplete="off">
-													<i class="input-icon uil uil-at"></i>
-												</div>	
-												<div class="form-group mt-2">
-													<input type="password" name="newPw" class="form-style" placeholder="Your Password" id="newPw" autocomplete="off">
-													<i class="input-icon uil uil-lock-alt"></i>
-												</div>
-												<div class="form-group mt-2">
-													<input type="password" name="pw2" class="form-style" placeholder="Repeat Password" id="pw2" autocomplete="off">
-													<i class="input-icon uil uil-lock-alt"></i>
-												</div>
-												<button type = "button" class="btn mt-4" id = "createBtn">create</button>
-											</form>
+											<div class="form-group">
+												<input type="text" name="logname" class="form-style" placeholder="Your Full Name" id="logname" autocomplete="off">
+												<i class="input-icon uil uil-user"></i>
+											</div>	
+											<div class="form-group mt-2">
+												<input type="email" name="logemail" class="form-style" placeholder="Your Email" id="logemail" autocomplete="off">
+												<i class="input-icon uil uil-at"></i>
+											</div>	
+											<div class="form-group mt-2">
+												<input type="password" name="logpass" class="form-style" placeholder="Your Password" id="logpass" autocomplete="off">
+												<i class="input-icon uil uil-lock-alt"></i>
+											</div>
+											<a href="#" class="btn mt-4">submit</a>
 				      					</div>
 			      					</div>
 			      				</div>
@@ -432,12 +363,5 @@
 	      	</div>
 	    </div>
 	</div>
-<!-- 
-	<div>
-		<a href = "${pageContext.request.contextPath}/member/addMember">
-			<button type = "button">Join Us!</button>
-		</a>
-	</div>
- -->
 </body>
 </html>

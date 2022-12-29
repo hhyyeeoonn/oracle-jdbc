@@ -31,7 +31,7 @@ public class AddMemberController extends HttpServlet { // Controller를 줄이�
 		}
 		
 		// view
-		request.getRequestDispatcher("/WEB-INF/view/member/addMember.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/view/member/login.jsp").forward(request, response);
 	}
 
 	// 회원가입 액션
@@ -42,9 +42,9 @@ public class AddMemberController extends HttpServlet { // Controller를 줄이�
 		 */
 		
 		request.setCharacterEncoding("utf-8");
-		String id = request.getParameter("id");
-		int pw = Integer.parseInt(request.getParameter("pw"));
-		String name = request.getParameter("name");
+		String id = request.getParameter("newId");
+		int pw = Integer.parseInt(request.getParameter("newPw"));
+		String name = request.getParameter("newName");
 		
 		Member member = new Member();
 		member.setMemberId(id);
