@@ -60,6 +60,33 @@ public class MemberService {
 		return selectOneMember;
 	}
 	
+	public int getCheckMemberId(String memberId) {
+		int checkMemberId = 0;
+		Connection conn = null;
+		try {
+			conn = DBUtil.getConnection();
+			this.memberDao = new MemberDao();
+			checkMemberId = memberDao.checkMemberId(conn, memberId);
+			conn.commit();
+		} catch(Exception e) {
+			try {
+				conn.rollback();
+			} catch(SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch(SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return checkMemberId;
+	}
+	
+	
+	
 	public int getInsertMember(Member member) {
 		int row = 0;
 		Connection conn = null;

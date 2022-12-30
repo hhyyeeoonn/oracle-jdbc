@@ -293,22 +293,7 @@
 </style>
 
 <script>
-	function checkNumber(event) {
-		  if(event.key === '.'  // event.keyCode 코드값 . (Num Lock)
-		     || event.key === '-' // event.keyCode 코드값 - (Num Lock)
-		     || event.key >= 0 && event.key <= 9) {
-		    return true;
-		  }
-		  
-		  return false;
-	}
-
 	$(document).ready(function() {
-		if($('#idMsg').val() != '') { // 아이디 중복일 때
-			alert('사용할 수 없는 아이디입니다');
-			$('#idMsg').val('');
-		}
-		
 		if($('#msg').val() != '') { // 가입 완료 후
 			alert('가입을 환영합니다!');
 			$('#msg').val('');
@@ -372,7 +357,7 @@
 <body>
 	<main class="main">
 	  <section class="home">
-	    <h1>Welcome to the <span>Board</span></h1>
+	    <h1>Welcome to the <span>Destiny</span></h1>
 	    <button id="sign-up" class="btn">Sign Up</button>
 	    <button id="sign-in" class="btn">Sign In</button>
 	    <p><a class="link-copy" href="http://collectui.com/designers/dnes/sign-up" target="_blank">©Copyright 2020</a></p>
@@ -396,7 +381,6 @@
 	      <!-- Form area Sign Up -->
 	      <div class="organize-form form-area-signup">
 	        <h2>SIGN UP</h2>
-	        <input type = "hidden" id = "idMsg" value = "${idMsg}">
 	        <form class="form" id = "addMemberForm" method = "post" action ="${pageContext.request.contextPath}/member/addMember">
 	          <div class="form-field">
 	            <label for="newName">Name</label>
@@ -410,12 +394,12 @@
 	
 	          <div class="form-field">
 	            <label for="newPw">Password</label>
-	            <input type="password" id="newPw" name = "newPw" onkeypress='return checkNumber(event)' />
+	            <input type="text" id="newPw" name = "newPw" />
 	          </div>
 	          
 	          <div class="form-field">
 	            <label for="pw2">Repeat Password</label>
-	            <input type="password" id="pw2" name="pw2" />
+	            <input type="text" id="pw2" name="pw2" />
 	          </div>
 	
 	          <button type = "button" class="btn-sign btn-up" id = "createBtn">Sign Up</button>
@@ -436,7 +420,7 @@
 	
 	          <div class="form-field">
 	            <label for="pw">Password</label>
-	            <input type="password" name="pw" id="pw" onkeypress='return checkNumber(event)' />
+	            <input type="text" name="pw" id="pw" />
 	          </div>
 	
 	          <button type = "button" class="btn-sign btn-in" id = "loginBtn">Sign In</button>
@@ -494,13 +478,7 @@
 		  showSign(e, 'signin');
 		});
 		el.btnSignUp.addEventListener('click', function(e) {
-			if($('#msg').val() != '') { // 가입 완료 후
-				alert('가입을 환영합니다!');
-				$('#msg').val('');
-				showSign(e, 'signin');
-				return;
-			}
-			
+		  showSign(e, 'signin');
 		});
 		
 		// Show the page Home

@@ -30,6 +30,13 @@ public class AddMemberController extends HttpServlet { // Controller를 줄이�
 			return;
 		}
 		
+		// 아이디 중복일 때
+		String idMsg = request.getParameter("idMsg");
+		if(idMsg != "") {
+			request.setAttribute("idMsg", idMsg);
+		}
+		
+		
 		// view
 		request.getRequestDispatcher("/WEB-INF/view/member/login.jsp").forward(request, response);
 	}
@@ -52,8 +59,15 @@ public class AddMemberController extends HttpServlet { // Controller를 줄이�
 		member.setMemberName(name);
 
 		String msg = "welcome!"; // login.jsp에 알림창을 띄우기 위한 msg
+		String idMsg = "check";
 		this.memberService = new MemberService();
+		int checkId = memberService.getCheckMemberId(member.getMemberId());
 		int memberRow = memberService.getInsertMember(member);
+		
+		if(checkId == 1) {
+			response.sendRedirect(request.getContextPath() + "/member/addMember?idMsg=" + idMsg);
+			return;
+		}
 		if(memberRow == 1) { // 가입완료
 			System.out.println("AddMemberController: 회원가입완료");
 			response.sendRedirect(request.getContextPath() + "/member/login?msg=" + msg);

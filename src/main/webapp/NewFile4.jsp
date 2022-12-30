@@ -10,9 +10,160 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 
 <!-- 부트스트랩 css 사용 -->
-<link rel = "stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+<link rel = "stylesheet" href = "${pageContext.request.contextPath}/resources/css/bootstrap.min.css">
 
+<!--  부트스트랩 js 사용 -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/bootstrap.js"></script>
+
+<!-- 합쳐지고 최소화된 최신 CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+<!-- 부가적인 테마 -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+
+<!-- 제이쿼리 -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- 합쳐지고 최소화된 최신 자바스크립트 -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
+
+
+<script>
+// css
+	// Elements
+	const el = {
+	  signUpHome: document.getElementById('sign-up'),
+	  signInHome: document.getElementById('sign-in'),
+	  btnHome: document.querySelector('.btn-back'),
+	  pageMain: document.querySelector('.main'),
+	  pageHome: document.querySelector('.home'),
+	  pageSignUp: document.querySelector('.sign-up'),
+	  formArea: document.querySelector('.form-area'),
+	  sideSignLeft: document.querySelector('.signup-left'),
+	  sideSignRight: document.querySelector('.signup-right'),
+	  formSignUp: document.querySelector('.form-area-signup'),
+	  formSignIn: document.querySelector('.form-area-signin'),
+	  linkUp: document.querySelector('.link-up'),
+	  linkIn: document.querySelector('.link-in'),
+	  btnSignUp: document.querySelector('.btn-up'),
+	  btnSignIn: document.querySelector('.btn-in'),
+	  labels: document.getElementsByTagName('label'),
+	  inputs: document.getElementsByTagName('input'),
+	};
+	
+	
+	// ADD Events
+	// Show the page Sign Up
+	el.signUpHome.addEventListener('click', function(e) {
+	  showSign(e, 'signup');
+	});
+	el.linkUp.addEventListener('click', function(e) {
+	  showSign(e, 'signup');
+	});
+	
+	// Show the page sign in
+	el.signInHome.addEventListener('click', function(e) {
+	  showSign(e, 'signin');
+	});
+	el.linkIn.addEventListener('click', function(e) {
+	  showSign(e, 'signin');
+	});
+	el.btnSignUp.addEventListener('click', function(e) {
+	  showSign(e, 'signin');
+	});
+	
+	// Show the page Home
+	el.btnHome.addEventListener('click', showHome);
+	
+	
+	// Functions Events
+	// function to show screen Home
+	function showHome(event) {
+	  
+	  
+	  setTimeout(function() {
+	    el.sideSignLeft.style.padding = '0';
+	    el.sideSignLeft.style.opacity = '0';
+	    el.sideSignRight.style.opacity = '0';
+	    el.sideSignRight.style.backgroundPositionX = '235%';
+	
+	    el.formArea.style.opacity = '0';
+	    setTimeout(function() {
+	      el.pageSignUp.style.opacity = '0';
+	      el.pageSignUp.style.display = 'none';
+	      for (input of el.inputs)  {
+	        input.value = '';
+	      }
+	    }, 900);
+	
+	  }, 100);
+	
+	  setTimeout(function() {
+	    el.pageHome.style.display = 'flex';
+	  },1100);
+	  
+	  setTimeout(function() {
+	    el.pageHome.style.opacity = '1';
+	  }, 1200);
+	
+	}
+	// function to show screen Sign up/Sign in
+	function showSign(event, sign) {
+	
+	  if (sign === 'signup') {
+	    el.formSignUp.style.display = 'flex';
+	    el.formSignIn.style.opacity = '0';
+	    setTimeout(function() {
+	      el.formSignUp.style.opacity = '1';
+	    }, 100);
+	    el.formSignIn.style.display = 'none';
+	
+	  } else {
+	    el.formSignIn.style.display = 'flex';
+	    el.formSignUp.style.opacity = '0';
+	    setTimeout(function() {
+	      el.formSignIn.style.opacity = '1';
+	    }, 100);
+	    el.formSignUp.style.display = 'none';
+	  }
+	
+	  el.pageHome.style.opacity = '0';
+	  setTimeout(function() {
+	    el.pageHome.style.display = 'none';
+	  }, 700);
+	  
+	  setTimeout(function() {
+	    el.pageSignUp.style.display = 'flex';
+	    el.pageSignUp.style.opacity = '1';
+	    
+	    setTimeout(function() {
+	      el.sideSignLeft.style.padding = '20px';
+	      el.sideSignLeft.style.opacity = '1';
+	      el.sideSignRight.style.opacity = '1';
+	      el.sideSignRight.style.backgroundPositionX = '230%';
+	
+	      el.formArea.style.opacity = '1';
+	    }, 10);
+	
+	  }, 900);
+	}
+	
+	// Behavior of the inputs and labels
+	for (input of el.inputs) {
+	  console.log(input)
+	  input.addEventListener('keydown', function() {
+	    this.labels[0].style.top = '10px';
+	  });
+	  input.addEventListener('blur', function() {
+	    if (this.value === '') {
+	      this.labels[0].style.top = '25px';
+	    }
+	  })
+	}
+
+</script>
 
 
 <style>
@@ -292,87 +443,11 @@
 
 </style>
 
-<script>
-	function checkNumber(event) {
-		  if(event.key === '.'  // event.keyCode 코드값 . (Num Lock)
-		     || event.key === '-' // event.keyCode 코드값 - (Num Lock)
-		     || event.key >= 0 && event.key <= 9) {
-		    return true;
-		  }
-		  
-		  return false;
-	}
-
-	$(document).ready(function() {
-		if($('#idMsg').val() != '') { // 아이디 중복일 때
-			alert('사용할 수 없는 아이디입니다');
-			$('#idMsg').val('');
-		}
-		
-		if($('#msg').val() != '') { // 가입 완료 후
-			alert('가입을 환영합니다!');
-			$('#msg').val('');
-		}
-		
-		if($('#loginMsg').val() != '') { // 로그인 실패시
-			alert('아이디와 비밀번호를 확인하세요');
-			$('#loginMsg').val('');
-		}
-		
-		$('#loginBtn').click(function() {
-			if($('#id').val() == '') { // 아이디 빈칸 체크
-				alert('아이디를 입력하세요');
-				$('#id').focus();
-				return;
-			} 
-			if($('#pw').val() == '') { // 비밀번호 빈칸 체크
-				alert('비밀번호를 입력하세요');
-				$('#pw').focus();
-				return;
-			}
-			
-			if($('#id').val() != '' && $('#pw').val() != '') {
-				$('#loginForm').submit();
-			}
-		});
-		
-		
-		$('#createBtn').click(function() {
-			if($('#newName').val() == '') { // 비밀번호 빈칸 체크
-				alert('이름을 입력하세요');
-				$('#name').focus();
-				return;
-			}
-			if($('#newId').val() == '') { // 아이디 빈칸 체크
-				alert('아이디를 입력하세요');
-				$('#id').focus();
-				return;
-			} 
-			if($('#newPw').val() == '') { // 비밀번호 빈칸 체크
-				alert('비밀번호를 입력하세요');
-				$('#pw').focus();
-				return;
-			}
-			if($('#newPw').val() != $('#pw2').val()) { // 비밀번호 확인
-				alert('비밀번호를 확인하세요');
-				$('#pw2').focus();
-				return;
-			}
-			
-			if($('#newId').val() != '' && $('#newPw').val() != '' && $('#newName').val() != '') {
-				$('#addMemberForm').submit();
-			}
-		});
-
-	});
-</script>
-
-
 </head>
 <body>
 	<main class="main">
 	  <section class="home">
-	    <h1>Welcome to the <span>Board</span></h1>
+	    <h1>Welcome to the <span>Destiny</span></h1>
 	    <button id="sign-up" class="btn">Sign Up</button>
 	    <button id="sign-in" class="btn">Sign In</button>
 	    <p><a class="link-copy" href="http://collectui.com/designers/dnes/sign-up" target="_blank">©Copyright 2020</a></p>
@@ -380,7 +455,7 @@
 	
 	  <section class="sign-up">
 	    <article class="signup-left">
-	      <h1>Board</h1>
+	      <h1>Destiny</h1>
 	      <div class="wc_message">
 	        <h3>Let's Kick Now!</h3>
 	        <p>It's Easy and takes less then 30 seconds.</p>
@@ -392,208 +467,57 @@
 	    </article>
 	
 	    <article class="form-area">
-	      
 	      <!-- Form area Sign Up -->
 	      <div class="organize-form form-area-signup">
 	        <h2>SIGN UP</h2>
-	        <input type = "hidden" id = "idMsg" value = "${idMsg}">
-	        <form class="form" id = "addMemberForm" method = "post" action ="${pageContext.request.contextPath}/member/addMember">
+	        <form class="form">
 	          <div class="form-field">
-	            <label for="newName">Name</label>
-	            <input type="text" id="newName" name = "newName" />
+	            <label for="name">Name</label>
+	            <input type="text" id="name" />
 	          </div>
 	
 	          <div class="form-field">
-	            <label for="newId">ID</label>
-	            <input type="text" id="newId" name="newId" />
+	            <label for="email">Email</label>
+	            <input type="text" id="email" />
 	          </div>
 	
 	          <div class="form-field">
-	            <label for="newPw">Password</label>
-	            <input type="password" id="newPw" name = "newPw" onkeypress='return checkNumber(event)' />
-	          </div>
-	          
-	          <div class="form-field">
-	            <label for="pw2">Repeat Password</label>
-	            <input type="password" id="pw2" name="pw2" />
+	            <label for="password">Password</label>
+	            <input type="text" id="password" />
 	          </div>
 	
-	          <button type = "button" class="btn-sign btn-up" id = "createBtn">Sign Up</button>
+	          <button class="btn-sign btn-up">Sign Up</button>
 	        </form>
 	        <p>Have an account? <a href="#" class="link-in">Sign In</a></p>
-	      </div> <!-- Form area Sign Up End-->
+	
+	      </div>
 	
 	      <!-- Form area Sign In -->
 	      <div class="organize-form form-area-signin">
 	        <h2>SIGN IN</h2>
-	        <input type = "hidden" id = "msg" value = "${msg}">
-			<input type = "hidden" id = "loginMsg" value = "${loginMsg}">
-	        <form class="form" id = "loginForm" method = "post" action ="${pageContext.request.contextPath}/member/login">
+	        <form class="form">
 	          <div class="form-field">
-	            <label for="id">ID</label>
-	            <input type="text" name="id" id="id" />
+	            <label for="email-in">Email</label>
+	            <input type="text" name="email_in" id="email-in" />
 	          </div>
 	
 	          <div class="form-field">
-	            <label for="pw">Password</label>
-	            <input type="password" name="pw" id="pw" onkeypress='return checkNumber(event)' />
+	            <label for="password-in">Password</label>
+	            <input type="text" name="password_in" id="password-in" />
 	          </div>
 	
-	          <button type = "button" class="btn-sign btn-in" id = "loginBtn">Sign In</button>
+	          <button class="btn-sign btn-in">Sign In</button>
 	        </form>
 	        <p>Haven't an account? <a href="#" class="link-up">Sign Up</a></p>
 	      </div>
 	    </article>
 	
 	    <article class="signup-right">
-	      <div></div>
+	      <i class="fas fa-2x fa-bars bars-style"></i>
 	      <p><a class="link-copy" href="http://collectui.com/designers/dnes/sign-up" target="_blank">©Copyright 2020</a></p>
 	
 	    </article>
 	  </section>
 	</main>
-	
-	<script>
-		// Elements
-		const el = {
-		  signUpHome: document.getElementById('sign-up'),
-		  signInHome: document.getElementById('sign-in'),
-		  btnHome: document.querySelector('.btn-back'),
-		  pageMain: document.querySelector('.main'),
-		  pageHome: document.querySelector('.home'),
-		  pageSignUp: document.querySelector('.sign-up'),
-		  formArea: document.querySelector('.form-area'),
-		  sideSignLeft: document.querySelector('.signup-left'),
-		  sideSignRight: document.querySelector('.signup-right'),
-		  formSignUp: document.querySelector('.form-area-signup'),
-		  formSignIn: document.querySelector('.form-area-signin'),
-		  linkUp: document.querySelector('.link-up'),
-		  linkIn: document.querySelector('.link-in'),
-		  btnSignUp: document.querySelector('.btn-up'),
-		  btnSignIn: document.querySelector('.btn-in'),
-		  labels: document.getElementsByTagName('label'),
-		  inputs: document.getElementsByTagName('input'),
-		};
-		
-		
-		// ADD Events
-		// Show the page Sign Up
-		el.signUpHome.addEventListener('click', function(e) {
-			showSign(e, 'signup');
-		});
-	
-		el.linkUp.addEventListener('click', function(e) {
-		  showSign(e, 'signup');
-		});
-		
-		// Show the page sign in
-		el.signInHome.addEventListener('click', function(e) {
-		  showSign(e, 'signin');
-		});
-		el.linkIn.addEventListener('click', function(e) {
-		  showSign(e, 'signin');
-		});
-		el.btnSignUp.addEventListener('click', function(e) {
-			if($('#msg').val() != '') { // 가입 완료 후
-				alert('가입을 환영합니다!');
-				$('#msg').val('');
-				showSign(e, 'signin');
-				return;
-			}
-			
-		});
-		
-		// Show the page Home
-		el.btnHome.addEventListener('click', showHome);
-		
-		
-		// Functions Events
-		// function to show screen Home
-		function showHome(event) {
-		  
-		  
-		  setTimeout(function() {
-		    el.sideSignLeft.style.padding = '0';
-		    el.sideSignLeft.style.opacity = '0';
-		    el.sideSignRight.style.opacity = '0';
-		    el.sideSignRight.style.backgroundPositionX = '235%';
-		
-		    el.formArea.style.opacity = '0';
-		    setTimeout(function() {
-		      el.pageSignUp.style.opacity = '0';
-		      el.pageSignUp.style.display = 'none';
-		      for (input of el.inputs)  {
-		        input.value = '';
-		      }
-		    }, 900);
-		
-		  }, 100);
-		
-		  setTimeout(function() {
-		    el.pageHome.style.display = 'flex';
-		  },1100);
-		  
-		  setTimeout(function() {
-		    el.pageHome.style.opacity = '1';
-		  }, 1200);
-		
-		}
-		// function to show screen Sign up/Sign in
-		function showSign(event, sign) {
-		
-		  if (sign === 'signup') {
-		    el.formSignUp.style.display = 'flex';
-		    el.formSignIn.style.opacity = '0';
-		    setTimeout(function() {
-		      el.formSignUp.style.opacity = '1';
-		    }, 100);
-		    el.formSignIn.style.display = 'none';
-		
-		  } else {
-		    el.formSignIn.style.display = 'flex';
-		    el.formSignUp.style.opacity = '0';
-		    setTimeout(function() {
-		      el.formSignIn.style.opacity = '1';
-		    }, 100);
-		    el.formSignUp.style.display = 'none';
-		  }
-		
-		  el.pageHome.style.opacity = '0';
-		  setTimeout(function() {
-		    el.pageHome.style.display = 'none';
-		  }, 700);
-		  
-		  setTimeout(function() {
-		    el.pageSignUp.style.display = 'flex';
-		    el.pageSignUp.style.opacity = '1';
-		    
-		    setTimeout(function() {
-		      el.sideSignLeft.style.padding = '20px';
-		      el.sideSignLeft.style.opacity = '1';
-		      el.sideSignRight.style.opacity = '1';
-		      el.sideSignRight.style.backgroundPositionX = '230%';
-		
-		      el.formArea.style.opacity = '1';
-		    }, 10);
-		
-		  }, 900);
-		}
-		
-		// Behavior of the inputs and labels
-		for (input of el.inputs) {
-		  console.log(input)
-		  input.addEventListener('keydown', function() {
-		    this.labels[0].style.top = '10px';
-		  });
-		  input.addEventListener('blur', function() {
-		    if (this.value === '') {
-		      this.labels[0].style.top = '25px';
-		    }
-		  });
-		}
-		
-		
-		
-	</script>
 </body>
 </html>

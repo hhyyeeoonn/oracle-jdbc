@@ -46,6 +46,19 @@ public class MemberDao {
 		return resultMember;
 	}
 	
+	public int checkMemberId(Connection conn, String memberId) throws Exception {
+		int resultRow = 0;
+		String sql = "SELECT member_id memberId"
+				+ " FROM member"
+				+ " WHERE member_id = ?";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setString(1, memberId);
+		resultRow = stmt.executeUpdate();
+		
+		stmt.close();
+		return resultRow;
+	}
+	
 	public int insertMember(Connection conn, Member member) throws Exception {
 		int row = 0;
 		String sql ="INSERT INTO member ("

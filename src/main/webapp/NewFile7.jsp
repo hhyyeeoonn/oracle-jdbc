@@ -292,87 +292,11 @@
 
 </style>
 
-<script>
-	function checkNumber(event) {
-		  if(event.key === '.'  // event.keyCode 코드값 . (Num Lock)
-		     || event.key === '-' // event.keyCode 코드값 - (Num Lock)
-		     || event.key >= 0 && event.key <= 9) {
-		    return true;
-		  }
-		  
-		  return false;
-	}
-
-	$(document).ready(function() {
-		if($('#idMsg').val() != '') { // 아이디 중복일 때
-			alert('사용할 수 없는 아이디입니다');
-			$('#idMsg').val('');
-		}
-		
-		if($('#msg').val() != '') { // 가입 완료 후
-			alert('가입을 환영합니다!');
-			$('#msg').val('');
-		}
-		
-		if($('#loginMsg').val() != '') { // 로그인 실패시
-			alert('아이디와 비밀번호를 확인하세요');
-			$('#loginMsg').val('');
-		}
-		
-		$('#loginBtn').click(function() {
-			if($('#id').val() == '') { // 아이디 빈칸 체크
-				alert('아이디를 입력하세요');
-				$('#id').focus();
-				return;
-			} 
-			if($('#pw').val() == '') { // 비밀번호 빈칸 체크
-				alert('비밀번호를 입력하세요');
-				$('#pw').focus();
-				return;
-			}
-			
-			if($('#id').val() != '' && $('#pw').val() != '') {
-				$('#loginForm').submit();
-			}
-		});
-		
-		
-		$('#createBtn').click(function() {
-			if($('#newName').val() == '') { // 비밀번호 빈칸 체크
-				alert('이름을 입력하세요');
-				$('#name').focus();
-				return;
-			}
-			if($('#newId').val() == '') { // 아이디 빈칸 체크
-				alert('아이디를 입력하세요');
-				$('#id').focus();
-				return;
-			} 
-			if($('#newPw').val() == '') { // 비밀번호 빈칸 체크
-				alert('비밀번호를 입력하세요');
-				$('#pw').focus();
-				return;
-			}
-			if($('#newPw').val() != $('#pw2').val()) { // 비밀번호 확인
-				alert('비밀번호를 확인하세요');
-				$('#pw2').focus();
-				return;
-			}
-			
-			if($('#newId').val() != '' && $('#newPw').val() != '' && $('#newName').val() != '') {
-				$('#addMemberForm').submit();
-			}
-		});
-
-	});
-</script>
-
-
 </head>
 <body>
 	<main class="main">
 	  <section class="home">
-	    <h1>Welcome to the <span>Board</span></h1>
+	    <h1>Welcome to the <span>Destiny</span></h1>
 	    <button id="sign-up" class="btn">Sign Up</button>
 	    <button id="sign-in" class="btn">Sign In</button>
 	    <p><a class="link-copy" href="http://collectui.com/designers/dnes/sign-up" target="_blank">©Copyright 2020</a></p>
@@ -396,7 +320,6 @@
 	      <!-- Form area Sign Up -->
 	      <div class="organize-form form-area-signup">
 	        <h2>SIGN UP</h2>
-	        <input type = "hidden" id = "idMsg" value = "${idMsg}">
 	        <form class="form" id = "addMemberForm" method = "post" action ="${pageContext.request.contextPath}/member/addMember">
 	          <div class="form-field">
 	            <label for="newName">Name</label>
@@ -410,12 +333,12 @@
 	
 	          <div class="form-field">
 	            <label for="newPw">Password</label>
-	            <input type="password" id="newPw" name = "newPw" onkeypress='return checkNumber(event)' />
+	            <input type="text" id="newPw" name = "newPw" />
 	          </div>
 	          
 	          <div class="form-field">
 	            <label for="pw2">Repeat Password</label>
-	            <input type="password" id="pw2" name="pw2" />
+	            <input type="text" id="pw2" name="pw2" />
 	          </div>
 	
 	          <button type = "button" class="btn-sign btn-up" id = "createBtn">Sign Up</button>
@@ -436,7 +359,7 @@
 	
 	          <div class="form-field">
 	            <label for="pw">Password</label>
-	            <input type="password" name="pw" id="pw" onkeypress='return checkNumber(event)' />
+	            <input type="text" name="pw" id="pw" />
 	          </div>
 	
 	          <button type = "button" class="btn-sign btn-in" id = "loginBtn">Sign In</button>
@@ -453,58 +376,62 @@
 	  </section>
 	</main>
 	
-	<script>
+<script>
 		// Elements
 		const el = {
-		  signUpHome: document.getElementById('sign-up'),
-		  signInHome: document.getElementById('sign-in'),
-		  btnHome: document.querySelector('.btn-back'),
-		  pageMain: document.querySelector('.main'),
-		  pageHome: document.querySelector('.home'),
-		  pageSignUp: document.querySelector('.sign-up'),
-		  formArea: document.querySelector('.form-area'),
-		  sideSignLeft: document.querySelector('.signup-left'),
-		  sideSignRight: document.querySelector('.signup-right'),
-		  formSignUp: document.querySelector('.form-area-signup'),
-		  formSignIn: document.querySelector('.form-area-signin'),
-		  linkUp: document.querySelector('.link-up'),
-		  linkIn: document.querySelector('.link-in'),
-		  btnSignUp: document.querySelector('.btn-up'),
-		  btnSignIn: document.querySelector('.btn-in'),
-		  labels: document.getElementsByTagName('label'),
-		  inputs: document.getElementsByTagName('input'),
+		  signUpHome: $('sign-up'),
+		  signInHome: $('sign-in'),
+		  btnHome: $('.btn-back'),
+		  pageMain: $('.main'),
+		  pageHome: $('.home'),
+		  pageSignUp: $('.sign-up'),
+		  formArea: $('.form-area'),
+		  sideSignLeft: $('.signup-left'),
+		  sideSignRight: $('.signup-right'),
+		  formSignUp: $('.form-area-signup'),
+		  formSignIn: $('.form-area-signin'),
+		  linkUp: $('.link-up'),
+		  linkIn: $('.link-in'),
+		  btnSignUp: $('.btn-up'),
+		  btnSignIn: $('.btn-in'),
+		  labels: $('label'),
+		  inputs: $('input'),
 		};
 		
 		
 		// ADD Events
 		// Show the page Sign Up
-		el.signUpHome.addEventListener('click', function(e) {
+		
+		
+		el.signUpHome.click(function(e) {
+			if($('#msg').val() != '') { // 가입 완료 후
+				alert('가입을 환영합니다!');
+				$('#msg').val('');
+			}
+			
+			if($('#loginMsg').val() != '') { // 로그인 실패시
+				alert('아이디와 비밀번호를 확인하세요');
+				$('#loginMsg').val('');
+			}
 			showSign(e, 'signup');
 		});
-	
-		el.linkUp.addEventListener('click', function(e) {
+		el.linkUp.click(function(e) {
 		  showSign(e, 'signup');
 		});
 		
 		// Show the page sign in
-		el.signInHome.addEventListener('click', function(e) {
+		el.signInHome.click(function(e) {
 		  showSign(e, 'signin');
 		});
-		el.linkIn.addEventListener('click', function(e) {
+		el.linkIn.click(function(e) {
 		  showSign(e, 'signin');
 		});
-		el.btnSignUp.addEventListener('click', function(e) {
-			if($('#msg').val() != '') { // 가입 완료 후
-				alert('가입을 환영합니다!');
-				$('#msg').val('');
-				showSign(e, 'signin');
-				return;
-			}
-			
+		el.btnSignUp.click(function(e) {
+		  showSign(e, 'signin');
 		});
 		
 		// Show the page Home
-		el.btnHome.addEventListener('click', showHome);
+		el.btnHome.click(showHome);
 		
 		
 		// Functions Events
