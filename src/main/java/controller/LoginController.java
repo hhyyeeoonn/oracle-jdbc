@@ -36,6 +36,7 @@ public class LoginController extends HttpServlet {
 	    // 가입 후 넘어왔을 때 가입환영 알림창을 띄우기 위해 msg 넘기기
 	    String msg = request.getParameter("msg");
 	    if(msg != "") {
+	    	System.out.println("loginController: 확인용");
 	    	request.setAttribute("msg", msg);
 	    }
 	    
