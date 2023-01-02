@@ -582,7 +582,7 @@
 	
 	    <article class="signup-right">
 	      <div></div>
-	      <p><a class="link-copy" href="http://collectui.com/designers/dnes/sign-up" target="_blank">©Copyright 2020</a></p>
+	      <p><a class="link-copy" href="http://collectui.com/designers/dnes/sign-up" target="_blank">Copyright © 2020 by Dinesh Shrestha</a></p>
 	
 	    </article>
 	  </section>

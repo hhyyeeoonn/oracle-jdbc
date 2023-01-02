@@ -1,6 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core"%>
 <!doctype html>
 <html class="no-js" lang="zxx">
 <head>
@@ -11,7 +10,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="manifest" href="site.webmanifest">
     <link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/resources/img/favicon.ico">
-
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+	
+	<script>
+		$(document).ready(function() {
+			$('#rowPerPage').change(function() {
+				$('#pageForm').submit();
+			});
+			$('#searchBtn').click(function() {
+				$('#pageForm').submit();
+			});
+		});
+	</script>
+	
+	
     <!-- CSS here -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/owl.carousel.min.css">
@@ -51,7 +63,7 @@
                             <!-- Logo -->
                             <div class="col-xl-3 col-lg-3 col-md-3 d-none d-md-block">
                                 <div class="logo">
-                                    <a href="index.html"><img src="${pageContext.request.contextPath}/resources/img/logo/board.png" alt=""></a>
+                                    <a href="${pageContext.request.contextPath}"><img src="${pageContext.request.contextPath}/resources/img/logo/board.png" alt=""></a>
                                 </div>
                             </div>
                             
@@ -70,8 +82,8 @@
                                 <div class="main-menu d-none d-md-block">
                                     <nav>                  
                                         <ul id="navigation">
-                                            <li><a href="index.html">Home</a></li>
-                                            <li><a href="about.html">board</a></li>
+                                            <li><a href="${pageContext.request.contextPath}">Home</a></li>
+                                            <li><a href="${pageContext.request.contextPath}">board</a></li>
                                         </ul>
                                     </nav>
                                 </div>
@@ -93,12 +105,61 @@
     <section class="blog_area section-padding">
         <div class="container">
             <div class="row">
-                <div class="col-lg-8 mb-5 mb-lg-0">
-                   
+                
+                <div class="col-lg-13 mb-5 mb-lg-0">
+                
+                	<h1>BOARD LIST</h1>
+					<div>
+						<a href = "${pageContext.request.contextPath}/board/addBoard">글 쓰기</a>
+					</div>
+					<form id = "pageForm" method = "get" action ="${pageContext.request.contextPath}/board/boardList">
+						<input type ="text" id = "word" name = "word" value = "${word}">
+						<button type = "button" id = "searchBtn">검색</button>
+						<select name = "rowPerPage" id = "rowPerPage">
+							<c:if test = "${rowPerPage == 10}">
+								<option value = "10" selected = "selected">10</option>
+								<option value = "20">20</option>
+								<option value = "30">30</option>
+							</c:if>
+							<c:if test = "${rowPerPage == 20}">
+								<option value = "10">10</option>
+								<option value = "20" selected = "selected">20</option>
+								<option value = "30">30</option>
+							</c:if>
+							<c:if test = "${rowPerPage == 30}">
+								<option value = "10">10</option>
+								<option value = "20">20</option>
+								<option value = "30" selected = "selected">30</option>
+							</c:if>
+						</select>
+					</form>
+					<table>
+						<tr>
+							<th>No.</th>
+							<th>Title</th>
+							<th>ID</th>
+							<th>CreateDate</th>
+						</tr>
+						<c:forEach var = "b" items = "${boardList}">
+							<tr>
+								<td>${b.boardNo}</td>
+								<td>
+									<a href = "${pageContext.request.contextPath}/board/boardOne?boardNo=${b.boardNo}">${b.boardTitle}</a>
+								</td>
+								<td>${b.memberId}</td>
+								<td>${b.createdate}</td>
+							</tr>
+						</c:forEach>
+					</table>
+					<div>
+						<c:if test = "${currentPage > 1}">
+							<a href = "${pageContext.request.contextPath}/board/boardList?rowPerPage=${rowPerPage}&currentPage=${currentPage - 1}&word=${word}">이전</a>
+						</c:if>
+							<a href = "${pageContext.request.contextPath}/board/boardList?rowPerPage=${rowPerPage}&currentPage=${currentPage + 1}&word=${word}">다음</a>
+					</div>
+                
                 </div>
-                <div class="col-lg-4">
-                   
-                </div>
+            
             </div>
         </div>
     </section>
